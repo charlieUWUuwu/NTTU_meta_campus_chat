@@ -10,7 +10,9 @@
 [![Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue)](https://huggingface.co/spaces/hiyouga/LLaMA-Board)
 [![Studios](https://img.shields.io/badge/ModelScope-Open%20In%20Studios-blue)](https://modelscope.cn/studios/hiyouga/LLaMA-Board)
 
-👋 Join our [WeChat](assets/wechat.jpg).
+> [!NOTE]
+> This repo is forcked from [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)
+
 
 \[ English | [中文](README_zh.md) \]
 
