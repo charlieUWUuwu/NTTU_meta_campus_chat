@@ -115,7 +115,7 @@ class WebChatModel(ChatModel):
         for new_text in self.stream_chat(
             query, history, system, max_new_tokens=max_new_tokens, top_p=top_p, temperature=temperature
         ):
-            # print("系統提示詞 : ", system)
+            # print("系統提示詞 : ", system) # 後面改為使用 vdb 作為提示詞
             response += new_text
             # new_history = history + [(query, response)] # 不要拼接歷史資訊，改成用單問單答
             chatbot[-1] = [query, self.postprocess(response)]
