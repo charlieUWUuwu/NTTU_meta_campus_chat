@@ -4,7 +4,7 @@ LOCALES = {
             "label": "Lang"
         },
         "zh": {
-            "label": "语言"
+            "label": "語言"
         }
     },
     "model_name": {
@@ -12,7 +12,7 @@ LOCALES = {
             "label": "Model name"
         },
         "zh": {
-            "label": "模型名称"
+            "label": "模型名稱"
         }
     },
     "model_path": {
@@ -21,8 +21,8 @@ LOCALES = {
             "info": "Path to pretrained model or model identifier from Hugging Face."
         },
         "zh": {
-            "label": "模型路径",
-            "info": "本地模型的文件路径或 Hugging Face 的模型标识符。"
+            "label": "模型路徑",
+            "info": "本機模型的檔案路徑或 Hugging Face 的模型識別碼。"
         }
     },
     "finetuning_type": {
@@ -30,7 +30,7 @@ LOCALES = {
             "label": "Finetuning method"
         },
         "zh": {
-            "label": "微调方法"
+            "label": "微調方法"
         }
     },
     "adapter_path": {
@@ -38,7 +38,7 @@ LOCALES = {
             "label": "Adapter path"
         },
         "zh": {
-            "label": "适配器路径"
+            "label": "適配器路徑"
         }
     },
     "refresh_btn": {
@@ -46,7 +46,7 @@ LOCALES = {
             "value": "Refresh adapters"
         },
         "zh": {
-            "value": "刷新适配器"
+            "value": "刷新適配器"
         }
     },
     "advanced_tab": {
@@ -54,7 +54,7 @@ LOCALES = {
             "label": "Advanced configurations"
         },
         "zh": {
-            "label": "高级设置"
+            "label": "進階設定"
         }
     },
     "quantization_bit": {
@@ -63,8 +63,8 @@ LOCALES = {
             "info": "Enable 4/8-bit model quantization (QLoRA)."
         },
         "zh": {
-            "label": "量化等级",
-            "info": "启用 4/8 比特模型量化（QLoRA）。"
+            "label": "量化等級",
+            "info": "啟用 4/8 位元模型量化（QLoRA）。"
         }
     },
     "template": {
@@ -74,7 +74,7 @@ LOCALES = {
         },
         "zh": {
             "label": "提示模板",
-            "info": "构建提示词时使用的模板"
+            "info": "建立提示詞時使用的模板"
         }
     },
     "rope_scaling": {
@@ -107,8 +107,8 @@ LOCALES = {
             "info": "The stage to perform in training."
         },
         "zh": {
-            "label": "训练阶段",
-            "info": "目前采用的训练方式。"
+            "label": "訓練階段",
+            "info": "目前採用的訓練方式。"
         }
     },
     "dataset_dir": {
@@ -117,8 +117,8 @@ LOCALES = {
             "info": "Path to the data directory."
         },
         "zh": {
-            "label": "数据路径",
-            "info": "数据文件夹的路径。"
+            "label": "數據路徑",
+            "info": "資料資料夾的路徑。"
         }
     },
     "dataset": {
@@ -126,7 +126,7 @@ LOCALES = {
             "label": "Dataset"
         },
         "zh": {
-            "label": "数据集"
+            "label": "數據集"
         }
     },
     "data_preview_btn": {
@@ -134,7 +134,7 @@ LOCALES = {
             "value": "Preview dataset"
         },
         "zh": {
-            "value": "预览数据集"
+            "value": "預覽資料集"
         }
     },
     "preview_count": {
@@ -142,7 +142,7 @@ LOCALES = {
             "label": "Count"
         },
         "zh": {
-            "label": "数量"
+            "label": "數量"
         }
     },
     "page_index": {
@@ -150,7 +150,7 @@ LOCALES = {
             "label": "Page"
         },
         "zh": {
-            "label": "页数"
+            "label": "頁數"
         }
     },
     "prev_btn": {
@@ -158,7 +158,7 @@ LOCALES = {
             "value": "Prev"
         },
         "zh": {
-            "value": "上一页"
+            "value": "上一頁"
         }
     },
     "next_btn": {
@@ -166,7 +166,7 @@ LOCALES = {
             "value": "Next"
         },
         "zh": {
-            "value": "下一页"
+            "value": "下一頁"
         }
     },
     "close_btn": {
@@ -174,7 +174,7 @@ LOCALES = {
             "value": "Close"
         },
         "zh": {
-            "value": "关闭"
+            "value": "關閉"
         }
     },
     "preview_samples": {
@@ -182,7 +182,7 @@ LOCALES = {
             "label": "Samples"
         },
         "zh": {
-            "label": "样例"
+            "label": "範例"
         }
     },
     "cutoff_len": {
@@ -191,8 +191,8 @@ LOCALES = {
             "info": "Max tokens in input sequence."
         },
         "zh": {
-            "label": "截断长度",
-            "info": "输入序列分词后的最大长度。"
+            "label": "截斷長度",
+            "info": "輸入序列分詞後的最大長度。"
         }
     },
     "learning_rate": {
@@ -201,8 +201,8 @@ LOCALES = {
             "info": "Initial learning rate for AdamW."
         },
         "zh": {
-            "label": "学习率",
-            "info": "AdamW 优化器的初始学习率。"
+            "label": "學習率",
+            "info": "AdamW 優化器的初始學習率。"
         }
     },
     "num_train_epochs": {
@@ -211,8 +211,8 @@ LOCALES = {
             "info": "Total number of training epochs to perform."
         },
         "zh": {
-            "label": "训练轮数",
-            "info": "需要执行的训练总轮数。"
+            "label": "訓練輪數",
+            "info": "需要執行的訓練總輪數。"
         }
     },
     "max_samples": {
@@ -221,8 +221,8 @@ LOCALES = {
             "info": "Maximum samples per dataset."
         },
         "zh": {
-            "label": "最大样本数",
-            "info": "每个数据集最多使用的样本数。"
+            "label": "最大樣本數",
+            "info": "每個資料集最多使用的樣本數。"
         }
     },
     "compute_type": {
@@ -231,8 +231,8 @@ LOCALES = {
             "info": "Whether to use fp16 or bf16 mixed precision training."
         },
         "zh": {
-            "label": "计算类型",
-            "info": "是否启用 FP16 或 BF16 混合精度训练。"
+            "label": "計算類型",
+            "info": "是否啟用 FP16 或 BF16 混合精度訓練。"
         }
     },
     "batch_size": {
@@ -241,8 +241,8 @@ LOCALES = {
             "info": "Number of samples to process per GPU."
         },
         "zh":{
-            "label": "批处理大小",
-            "info": "每块 GPU 上处理的样本数量。"
+            "label": "批次大小",
+            "info": "每塊 GPU 上處理的樣本數。"
         }
     },
     "gradient_accumulation_steps": {
@@ -251,8 +251,8 @@ LOCALES = {
             "info": "Number of gradient accumulation steps."
         },
         "zh": {
-            "label": "梯度累积",
-            "info": "梯度累积的步数。"
+            "label": "梯度累積",
+            "info": "梯度累積的步數。"
         }
     },
     "lr_scheduler_type": {
@@ -261,8 +261,8 @@ LOCALES = {
             "info": "Name of learning rate scheduler.",
         },
         "zh": {
-            "label": "学习率调节器",
-            "info": "采用的学习率调节器名称。"
+            "label": "學習率調節器",
+            "info": "採用的學習率調節器名稱。"
         }
     },
     "max_grad_norm": {
@@ -271,8 +271,8 @@ LOCALES = {
             "info": "Norm for gradient clipping.."
         },
         "zh": {
-            "label": "最大梯度范数",
-            "info": "用于梯度裁剪的范数。"
+            "label": "最大梯度範數",
+            "info": "用於梯度裁剪的範數。"
         }
     },
     "val_size": {
@@ -281,8 +281,8 @@ LOCALES = {
             "info": "Proportion of data in the dev set."
         },
         "zh": {
-            "label": "验证集比例",
-            "info": "验证集占全部样本的百分比。"
+            "label": "驗證集比例",
+            "info": "驗證集佔全部樣本的百分比。"
         }
     },
     "extra_tab": {
@@ -290,7 +290,7 @@ LOCALES = {
             "label": "Extra configurations"
         },
         "zh": {
-            "label": "其它参数设置"
+            "label": "其它參數設定"
         }
     },
     "logging_steps": {
@@ -299,8 +299,8 @@ LOCALES = {
             "info": "Number of steps between two logs."
         },
         "zh": {
-            "label": "日志间隔",
-            "info": "每两次日志输出间的更新步数。"
+            "label": "日誌間隔",
+            "info": "每兩次日誌輸出間的更新步數。"
         }
     },
     "save_steps": {
@@ -309,8 +309,8 @@ LOCALES = {
             "info": "Number of steps between two checkpoints."
         },
         "zh": {
-            "label": "保存间隔",
-            "info": "每两次断点保存间的更新步数。"
+            "label": "保存間隔",
+            "info": "每兩次斷點保存間的更新步數。"
         }
     },
     "warmup_steps": {
@@ -319,8 +319,8 @@ LOCALES = {
             "info": "Number of steps used for warmup."
         },
         "zh": {
-            "label": "预热步数",
-            "info": "学习率预热采用的步数。"
+            "label": "預熱步數",
+            "info": "學習率預熱所採用的步數。"
         }
     },
     "neftune_alpha": {
@@ -329,8 +329,8 @@ LOCALES = {
             "info": "Magnitude of noise adding to embedding vectors."
         },
         "zh": {
-            "label": "NEFTune 噪声参数",
-            "info": "嵌入向量所添加的噪声大小。"
+            "label": "NEFTune 噪音參數",
+            "info": "嵌入向量所添加的雜訊大小。"
         }
     },
     "train_on_prompt": {
@@ -339,8 +339,8 @@ LOCALES = {
             "info": "Compute loss on the prompt tokens in supervised fine-tuning."
         },
         "zh": {
-            "label": "计算输入损失",
-            "info": "在监督微调时候计算输入序列的损失。"
+            "label": "計算輸入損失",
+            "info": "在監督微調時候計算輸入序列的損失。"
         }
     },
     "upcast_layernorm": {
@@ -349,8 +349,8 @@ LOCALES = {
             "info": "Upcast weights of layernorm in float32."
         },
         "zh": {
-            "label": "缩放归一化层",
-            "info": "将归一化层权重缩放至 32 位浮点数。"
+            "label": "縮放歸一化層",
+            "info": "將歸一化層權重縮放至 32 位元浮點數。"
         }
     },
     "lora_tab": {
@@ -358,7 +358,7 @@ LOCALES = {
             "label": "LoRA configurations"
         },
         "zh": {
-            "label": "LoRA 参数设置"
+            "label": "LoRA 參數設定"
         }
     },
     "lora_rank": {
@@ -368,7 +368,7 @@ LOCALES = {
         },
         "zh": {
             "label": "LoRA 秩",
-            "info": "LoRA 矩阵的秩。"
+            "info": "LoRA 矩陣的秩。"
         }
     },
     "lora_dropout": {
@@ -377,8 +377,8 @@ LOCALES = {
             "info": "Dropout ratio of LoRA weights."
         },
         "zh": {
-            "label": "LoRA 随机丢弃",
-            "info": "LoRA 权重随机丢弃的概率。"
+            "label": "LoRA 隨機丟棄",
+            "info": "LoRA 權重隨機丟棄的機率。"
         }
     },
     "lora_target": {
@@ -387,8 +387,8 @@ LOCALES = {
             "info": "Name(s) of target modules to apply LoRA. Use commas to separate multiple modules."
         },
         "zh": {
-            "label": "LoRA 作用模块（非必填）",
-            "info": "应用 LoRA 的目标模块名称。使用英文逗号分隔多个名称。"
+            "label": "LoRA 作用模組（非必填）",
+            "info": "應用 LoRA 的目標模組名稱。使用英文逗號分隔多個名稱。"
         }
     },
     "additional_target": {
@@ -397,8 +397,8 @@ LOCALES = {
             "info": "Name(s) of modules apart from LoRA layers to be set as trainable. Use commas to separate multiple modules."
         },
         "zh": {
-            "label": "附加模块（非必填）",
-            "info": "除 LoRA 层以外的可训练模块名称。使用英文逗号分隔多个名称。"
+            "label": "附加模組（非必填）",
+            "info": "除 LoRA 層以外的可訓練模組名稱。使用英文逗號分隔多個名稱。"
         }
     },
     "create_new_adapter": {
@@ -407,8 +407,8 @@ LOCALES = {
             "info": "Whether to create a new adapter with randomly initialized weight or not."
         },
         "zh": {
-            "label": "新建适配器",
-            "info": "是否创建一个经过随机初始化的新适配器。"
+            "label": "新建適配器",
+            "info": "是否建立一個經過隨機初始化的新適配器。"
         }
     },
     "rlhf_tab": {
@@ -416,7 +416,7 @@ LOCALES = {
             "label": "RLHF configurations"
         },
         "zh": {
-            "label": "RLHF 参数设置"
+            "label": "RLHF 參數設定"
         }
     },
     "dpo_beta": {
@@ -425,8 +425,8 @@ LOCALES = {
             "info": "Value of the beta parameter in the DPO loss."
         },
         "zh": {
-            "label": "DPO beta 参数",
-            "info": "DPO 损失函数中 beta 超参数大小。"
+            "label": "DPO beta 參數",
+            "info": "DPO 損失函數中 beta 超參數大小。"
         }
     },
     "reward_model": {
@@ -435,8 +435,8 @@ LOCALES = {
             "info": "Adapter of the reward model for PPO training. (Needs to refresh adapters)"
         },
         "zh": {
-            "label": "奖励模型",
-            "info": "PPO 训练中奖励模型的适配器路径。（需要刷新适配器）"
+            "label": "獎勵模型",
+            "info": "PPO 訓練中獎勵模型的轉接器路徑。 （需要刷新適配器）"
         }
     },
     "cmd_preview_btn": {
@@ -444,7 +444,7 @@ LOCALES = {
             "value": "Preview command"
         },
         "zh": {
-            "value": "预览命令"
+            "value": "預覽命令"
         }
     },
     "start_btn": {
@@ -452,7 +452,7 @@ LOCALES = {
             "value": "Start"
         },
         "zh": {
-            "value": "开始"
+            "value": "開始"
         }
     },
     "stop_btn": {
@@ -460,7 +460,7 @@ LOCALES = {
             "value": "Abort"
         },
         "zh": {
-            "value": "中断"
+            "value": "中斷"
         }
     },
     "output_dir": {
@@ -469,8 +469,8 @@ LOCALES = {
             "info": "Directory for saving results."
         },
         "zh": {
-            "label": "输出目录",
-            "info": "保存结果的路径。"
+            "label": "輸出目錄",
+            "info": "儲存結果的路徑。"
         }
     },
     "output_box": {
@@ -478,7 +478,7 @@ LOCALES = {
             "value": "Ready."
         },
         "zh": {
-            "value": "准备就绪。"
+            "value": "準備就緒。"
         }
     },
     "loss_viewer": {
@@ -486,7 +486,7 @@ LOCALES = {
             "label": "Loss"
         },
         "zh": {
-            "label": "损失"
+            "label": "損失"
         }
     },
     "predict": {
@@ -494,7 +494,7 @@ LOCALES = {
             "label": "Save predictions"
         },
         "zh": {
-            "label": "保存预测结果"
+            "label": "保存預測結果"
         }
     },
     "load_btn": {
@@ -502,7 +502,7 @@ LOCALES = {
             "value": "Load model"
         },
         "zh": {
-            "value": "加载模型"
+            "value": "載入模型"
         }
     },
     "unload_btn": {
@@ -510,7 +510,7 @@ LOCALES = {
             "value": "Unload model"
         },
         "zh": {
-            "value": "卸载模型"
+            "value": "解除安裝模型"
         }
     },
     "info_box": {
@@ -518,7 +518,7 @@ LOCALES = {
             "value": "Model unloaded, please load a model first."
         },
         "zh": {
-            "value": "模型未加载，请先加载模型。"
+            "value": "模型未載入，請先載入模型。"
         }
     },
     "system": {
@@ -526,7 +526,7 @@ LOCALES = {
             "placeholder": "System prompt (optional)"
         },
         "zh": {
-            "placeholder": "系统提示词（非必填）"
+            "placeholder": "系統提示詞（非必填）"
         }
     },
     "query": {
@@ -534,7 +534,7 @@ LOCALES = {
             "placeholder": "Input..."
         },
         "zh": {
-            "placeholder": "输入..."
+            "placeholder": "輸入..."
         }
     },
     "submit_btn": {
@@ -550,7 +550,7 @@ LOCALES = {
             "value": "Clear history"
         },
         "zh": {
-            "value": "清空历史"
+            "value": "清空歷史"
         }
     },
     "max_length": {
@@ -558,7 +558,7 @@ LOCALES = {
             "label": "Maximum length"
         },
         "zh": {
-            "label": "最大长度"
+            "label": "最大長度"
         }
     },
     "max_new_tokens": {
@@ -566,7 +566,7 @@ LOCALES = {
             "label": "Maximum new tokens"
         },
         "zh": {
-            "label": "最大生成长度"
+            "label": "最大生成長度"
         }
     },
     "top_p": {
@@ -574,7 +574,7 @@ LOCALES = {
             "label": "Top-p"
         },
         "zh": {
-            "label": "Top-p 采样值"
+            "label": "Top-p 取樣值"
         }
     },
     "temperature": {
@@ -582,7 +582,7 @@ LOCALES = {
             "label": "Temperature"
         },
         "zh": {
-            "label": "温度系数"
+            "label": "溫度係數"
         }
     },
     "max_shard_size": {
@@ -591,8 +591,8 @@ LOCALES = {
             "info": "The maximum size for a model file."
         },
         "zh": {
-            "label": "最大分块大小（GB）",
-            "info": "单个模型文件的最大大小。"
+            "label": "最大分塊大小（GB）",
+            "info": "單一模型檔案的最大大小。"
         }
     },
     "export_quantization_bit": {
@@ -601,8 +601,8 @@ LOCALES = {
             "info": "Quantizing the exported model."
         },
         "zh": {
-            "label": "导出量化等级",
-            "info": "量化导出模型。"
+            "label": "導出量化等級",
+            "info": "量化導出模型。"
         }
     },
     "export_quantization_dataset": {
@@ -611,8 +611,8 @@ LOCALES = {
             "info": "The calibration dataset used for quantization."
         },
         "zh": {
-            "label": "导出量化数据集",
-            "info": "量化过程中使用的校准数据集。"
+            "label": "導出量化資料集",
+            "info": "量化過程中使用的校準資料集。"
         }
     },
     "export_dir": {
@@ -621,8 +621,8 @@ LOCALES = {
             "info": "Directory to save exported model."
         },
         "zh": {
-            "label": "导出目录",
-            "info": "保存导出模型的文件夹路径。"
+            "label": "匯出目錄",
+            "info": "儲存匯出模型的資料夾路徑。"
         }
     },
     "export_btn": {
@@ -630,7 +630,7 @@ LOCALES = {
             "value": "Export"
         },
         "zh": {
-            "value": "开始导出"
+            "value": "開始匯出"
         }
     }
 }
@@ -639,15 +639,15 @@ LOCALES = {
 ALERTS = {
     "err_conflict": {
         "en": "A process is in running, please abort it firstly.",
-        "zh": "任务已存在，请先中断训练。"
+        "zh": "任務已存在，請先中斷訓練。"
     },
     "err_exists": {
         "en": "You have loaded a model, please unload it first.",
-        "zh": "模型已存在，请先卸载模型。"
+        "zh": "模型已存在，請先卸載模型。"
     },
     "err_no_model": {
         "en": "Please select a model.",
-        "zh": "请选择模型。"
+        "zh": "請選擇模型。"
     },
     "err_no_path": {
         "en": "Model not found.",
@@ -655,58 +655,58 @@ ALERTS = {
     },
     "err_no_dataset": {
         "en": "Please choose a dataset.",
-        "zh": "请选择数据集。"
+        "zh": "請選擇資料集。"
     },
     "err_no_adapter": {
         "en": "Please select an adapter.",
-        "zh": "请选择一个适配器。"
+        "zh": "請選擇一個適配器。"
     },
     "err_no_export_dir": {
         "en": "Please provide export dir.",
-        "zh": "请填写导出目录"
+        "zh": "請填寫匯出目錄"
     },
     "err_failed": {
         "en": "Failed.",
-        "zh": "训练出错。"
+        "zh": "訓練出錯。"
     },
     "err_demo": {
         "en": "Training is unavailable in demo mode, duplicate the space to a private one first.",
-        "zh": "展示模式不支持训练，请先复制到私人空间。"
+        "zh": "展示模式不支援訓練，請先複製到私人空間。"
     },
     "info_aborting": {
         "en": "Aborted, wait for terminating...",
-        "zh": "训练中断，正在等待线程结束……"
+        "zh": "訓練中斷，正在等待線程結束…"
     },
     "info_aborted": {
         "en": "Ready.",
-        "zh": "准备就绪。"
+        "zh": "準備就緒。"
     },
     "info_finished": {
         "en": "Finished.",
-        "zh": "训练完毕。"
+        "zh": "訓練完畢。"
     },
     "info_loading": {
         "en": "Loading model...",
-        "zh": "加载中……"
+        "zh": "載入中……"
     },
     "info_unloading": {
         "en": "Unloading model...",
-        "zh": "卸载中……"
+        "zh": "卸載中…"
     },
     "info_loaded": {
         "en": "Model loaded, now you can chat with your model!",
-        "zh": "模型已加载，可以开始聊天了！"
+        "zh": "模型已加載，可以開始聊天了！"
     },
     "info_unloaded": {
         "en": "Model unloaded.",
-        "zh": "模型已卸载。"
+        "zh": "模型已卸載。"
     },
     "info_exporting": {
         "en": "Exporting model...",
-        "zh": "正在导出模型……"
+        "zh": "正在匯出模型…"
     },
     "info_exported": {
         "en": "Model exported.",
-        "zh": "模型导出完成。"
+        "zh": "模型匯出完成。"
     }
 }
