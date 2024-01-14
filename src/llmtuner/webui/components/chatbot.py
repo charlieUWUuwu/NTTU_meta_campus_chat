@@ -16,7 +16,7 @@ def create_chat_box(
         history = gr.State([])
         with gr.Row():
             with gr.Column(scale=4):
-                system = gr.Textbox(show_label=False)
+                system = gr.Textbox(show_label=False) # 系統提示詞框
                 query = gr.Textbox(show_label=False, lines=8)
                 submit_btn = gr.Button(variant="primary")
 

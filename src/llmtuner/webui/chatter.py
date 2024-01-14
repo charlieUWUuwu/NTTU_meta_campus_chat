@@ -110,14 +110,18 @@ class WebChatModel(ChatModel):
         temperature: float
     ) -> Generator[Tuple[List[Tuple[str, str]], List[Tuple[str, str]]], None, None]:
         chatbot.append([query, ""])
+        print("chatbot : ", chatbot)
         response = ""
         for new_text in self.stream_chat(
             query, history, system, max_new_tokens=max_new_tokens, top_p=top_p, temperature=temperature
         ):
+            # print("系統提示詞 : ", system)
             response += new_text
-            new_history = history + [(query, response)]
+            # new_history = history + [(query, response)] # 不要拼接歷史資訊，改成用單問單答
             chatbot[-1] = [query, self.postprocess(response)]
-            yield chatbot, new_history
+            # yield chatbot, new_history
+
+            yield chatbot, history
 
     def postprocess(self, response: str) -> str:
         blocks = response.split("```")
