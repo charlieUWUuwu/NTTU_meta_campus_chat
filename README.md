@@ -5,12 +5,7 @@
 
 Please refer to [data/README.md](data/README.md) for details.
 
-Some datasets require confirmation before using them, so we recommend logging in with your Hugging Face account using these commands.
 
-```bash
-pip install --upgrade huggingface_hub
-huggingface-cli login
-```
 
 ## Requirement
 
@@ -32,25 +27,53 @@ huggingface-cli login
 | QLoRA  |   4  |   6GB |  12GB |  24GB |   48GB |   32GB |
 
 ## Getting Started
-
-
-
-
-
-
-## Citation
-
-If this work is helpful, please kindly cite as:
-
-```bibtex
-@Misc{llama-factory,
-  title = {LLaMA Factory},
-  author = {hiyouga},
-  howpublished = {\url{https://github.com/hiyouga/LLaMA-Factory}},
-  year = {2023}
-}
+1. install the requirements
+```bash
+conda create --name myenv python=3.10
+pip install -r requirements.txt
 ```
 
-## Acknowledgement
+2. (optional) login HuggingFace account
+Some datasets require confirmation before using them, so we recommend logging in with your Hugging Face account using these commands.
+```bash
+pip install --upgrade huggingface_hub
+huggingface-cli login
+```
 
-This repo benefits from [PEFT](https://github.com/huggingface/peft), [QLoRA](https://github.com/artidoro/qlora) and [FastChat](https://github.com/lm-sys/FastChat). Thanks for their wonderful works.
+3. run the web page
+```bash
+python src/web_demo.py \
+    --model_name_or_path bigscience/bloomz-1b1 \
+    --adapter_name_or_path unmerge_model/bloomz-1b1_NTTU \
+    --template alpaca \
+    --finetuning_type lora
+```
+
+## how to maintain this repo
+每次增修內容前請依循下列流程進行：
+1. Pull origin/develop 最新版本
+    ```shell
+    $ git pull origin develop
+    ```
+2. 在 local 新增 branch 並切換
+    ```shell
+    $ git checkout -b <NEW_BRANCH_NAME>
+    ```
+3. 編輯完成後進行 commit
+    ```shell
+    $ git add .
+    $ git commit -m "COMMIT_MSG"
+    ```
+4. 回到 develop 再次獲取 origin/develop 的最新版本、與自己的修正合併並修正出現的 conflict
+    ```shell
+    $ git checkout develop
+    $ git pull
+    $ git checkout <NEW_BRANCH_NAME>
+    $ git rebase develop
+    ```
+5. 將新 branch 的修正與 develop 合併並 push 到 Github
+    ```shell
+    $ git checkout develop
+    $ git merge <NEW_BRANCH_NAME>
+    $ git push
+    ```
