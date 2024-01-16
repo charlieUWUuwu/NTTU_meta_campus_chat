@@ -18,7 +18,7 @@ class Manager:
 
     def get_base_elems(self) -> Set["Component"]:
         return {
-            self.all_elems["top"]["lang"],
+            # self.all_elems["top"]["lang"],
             self.all_elems["top"]["model_name"],
             self.all_elems["top"]["model_path"],
             self.all_elems["top"]["adapter_path"],

@@ -24,10 +24,11 @@ class Engine:
 
     def resume(self) -> Generator[Dict[Component, Dict[str, Any]], None, None]:
         user_config = load_config() if not self.demo_mode else {}
-        lang = user_config.get("lang", None) or "en"
+        # lang = user_config.get("lang", None) or "en"
+        lang = "zh"
 
         init_dict = {
-            "top.lang": {"value": lang},
+            # "top.lang": {"value": lang},
             "infer.chat_box": {"visible": self.chatter.loaded}
         }
 
@@ -54,8 +55,8 @@ class Engine:
                     "eval.output_dir": {"value": "eval_" + get_time()},
                 })
 
-    def change_lang(self, lang: str) -> Dict[Component, Dict[str, Any]]:
-        return {
-            component: gr.update(**LOCALES[name][lang])
-            for elems in self.manager.all_elems.values() for name, component in elems.items() if name in LOCALES
-        }
+    # def change_lang(self, lang: str) -> Dict[Component, Dict[str, Any]]:
+    #     return {
+    #         component: gr.update(**LOCALES[name][lang])
+    #         for elems in self.manager.all_elems.values() for name, component in elems.items() if name in LOCALES
+    #     }

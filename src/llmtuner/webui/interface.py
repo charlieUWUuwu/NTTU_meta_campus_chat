@@ -32,8 +32,9 @@ def create_ui(demo_mode: Optional[bool] = False) -> gr.Blocks:
             )
             gr.DuplicateButton(value="Duplicate Space for private use", elem_classes="duplicate-button")
 
-        engine.manager.all_elems["top"] = create_top()
-        lang: "gr.Dropdown" = engine.manager.get_elem_by_name("top.lang")
+        # 在 web 模式中的 top 只有語言選擇，捨棄!
+        # engine.manager.all_elems["top"] = create_top()
+        # lang: "gr.Dropdown" = engine.manager.get_elem_by_name("top.lang")
 
         with gr.Tab("Train"):
             engine.manager.all_elems["train"] = create_train_tab(engine)
@@ -49,8 +50,8 @@ def create_ui(demo_mode: Optional[bool] = False) -> gr.Blocks:
                 engine.manager.all_elems["export"] = create_export_tab(engine)
 
         demo.load(engine.resume, outputs=engine.manager.list_elems())
-        lang.change(engine.change_lang, [lang], engine.manager.list_elems(), queue=False)
-        lang.input(save_config, inputs=[lang], queue=False)
+        # lang.change(engine.change_lang, [lang], engine.manager.list_elems(), queue=False)
+        # lang.input(save_config, inputs=[lang], queue=False)
 
     return demo
 
@@ -59,15 +60,16 @@ def create_web_demo() -> gr.Blocks:
     engine = Engine(pure_chat=True)
 
     with gr.Blocks(title="Web Demo", css=CSS) as demo:
-        lang = gr.Dropdown(choices=["en", "zh"])
-        engine.manager.all_elems["top"] = dict(lang=lang)
+        # lang = gr.Dropdown(choices=["en", "zh"])
+        # engine.manager.all_elems["top"] = dict(lang=lang)
 
+        # chat_box, chatbot, history, (滑動條、模型提示詞等元件)
         chat_box, _, _, chat_elems = create_chat_box(engine, visible=True)
         engine.manager.all_elems["infer"] = dict(chat_box=chat_box, **chat_elems)
 
         demo.load(engine.resume, outputs=engine.manager.list_elems())
-        lang.change(engine.change_lang, [lang], engine.manager.list_elems(), queue=False)
-        lang.input(save_config, inputs=[lang], queue=False)
+        # lang.change(engine.change_lang, [lang], engine.manager.list_elems(), queue=False)
+        # lang.input(save_config, inputs=[lang], queue=False)
 
     return demo
 

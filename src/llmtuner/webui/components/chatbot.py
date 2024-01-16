@@ -12,24 +12,27 @@ def create_chat_box(
     visible: Optional[bool] = False
 ) -> Tuple["Block", "Component", "Component", Dict[str, "Component"]]:
     with gr.Box(visible=visible) as chat_box:
-        chatbot = gr.Chatbot()
+        chatbot = gr.Chatbot(height=550)
         history = gr.State([])
         with gr.Row():
             with gr.Column(scale=4):
-                system = gr.Textbox(show_label=False) # 系統提示詞框
+                # system = gr.Textbox(show_label=False) # 系統提示詞框 
                 query = gr.Textbox(show_label=False, lines=8)
-                submit_btn = gr.Button(variant="primary")
-
-            with gr.Column(scale=1):
-                clear_btn = gr.Button()
-                gen_kwargs = engine.chatter.generating_args
-                max_new_tokens = gr.Slider(10, 2048, value=gen_kwargs.max_new_tokens, step=1)
-                top_p = gr.Slider(0.01, 1, value=gen_kwargs.top_p, step=0.01)
-                temperature = gr.Slider(0.01, 1.5, value=gen_kwargs.temperature, step=0.01)
+                with gr.Row():
+                    submit_btn = gr.Button(variant="primary", value="Submit")
+                    # with gr.Column(scale=1):
+            
+                    clear_btn = gr.Button(value="Clear")
+                # gen_kwargs = engine.chatter.generating_args
+                
+                # max_new_tokens = gr.Slider(10, 2048, value=gen_kwargs.max_new_tokens, step=1)
+                # top_p = gr.Slider(0.01, 1, value=gen_kwargs.top_p, step=0.01)
+                # temperature = gr.Slider(0.01, 1.5, value=gen_kwargs.temperature, step=0.01)
 
     submit_btn.click(
         engine.chatter.predict,
-        [chatbot, query, history, system, max_new_tokens, top_p, temperature],
+        # [chatbot, query, history, system, max_new_tokens, top_p, temperature],
+        [chatbot, query, history],
         [chatbot, history],
         show_progress=True
     ).then(
@@ -39,11 +42,11 @@ def create_chat_box(
     clear_btn.click(lambda: ([], []), outputs=[chatbot, history], show_progress=True)
 
     return chat_box, chatbot, history, dict(
-        system=system,
+        # system=system,
         query=query,
         submit_btn=submit_btn,
         clear_btn=clear_btn,
-        max_new_tokens=max_new_tokens,
-        top_p=top_p,
-        temperature=temperature
+        # max_new_tokens=max_new_tokens,
+        # top_p=top_p,
+        # temperature=temperature
     )

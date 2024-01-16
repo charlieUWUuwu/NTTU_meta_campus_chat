@@ -47,7 +47,8 @@ class WebChatModel(ChatModel):
 
     def load_model(self, data: Dict[Component, Any]) -> Generator[str, None, None]:
         get = lambda name: data[self.manager.get_elem_by_name(name)]
-        lang = get("top.lang")
+        # lang = get("top.lang")
+        lang = "zh"
         error = ""
         if self.loaded:
             error = ALERTS["err_exists"][lang]
@@ -86,7 +87,8 @@ class WebChatModel(ChatModel):
         yield ALERTS["info_loaded"][lang]
 
     def unload_model(self, data: Dict[Component, Any]) -> Generator[str, None, None]:
-        lang = data[self.manager.get_elem_by_name("top.lang")]
+        # lang = data[self.manager.get_elem_by_name("top.lang")]
+        lang = "zh"
 
         if self.demo_mode:
             gr.Warning(ALERTS["err_demo"][lang])
@@ -104,18 +106,25 @@ class WebChatModel(ChatModel):
         chatbot: List[Tuple[str, str]],
         query: str,
         history: List[Tuple[str, str]],
-        system: str,
-        max_new_tokens: int,
-        top_p: float,
-        temperature: float
+        # system: str,
+        # max_new_tokens: int,
+        # top_p: float,
+        # temperature: float
     ) -> Generator[Tuple[List[Tuple[str, str]], List[Tuple[str, str]]], None, None]:
         chatbot.append([query, ""])
-        print("chatbot : ", chatbot)
+        print("chatbot : ", chatbot) # [['user query', 'model reply'], ['user query2', '']] # 最新一筆的模型還沒有回覆
         response = ""
+
+        # Fixed settings
+        system = ""  # 之後改 VDB 取出的東西拉
+        max_new_tokens = 1024
+        top_p = 0.7
+        temperature = 0.0
+
         for new_text in self.stream_chat(
             query, history, system, max_new_tokens=max_new_tokens, top_p=top_p, temperature=temperature
         ):
-            # print("系統提示詞 : ", system) # 後面改為使用 vdb 作為提示詞
+            # print("系統提示詞 : ", system) 
             response += new_text
             # new_history = history + [(query, response)] # 不要拼接歷史資訊，改成用單問單答
             chatbot[-1] = [query, self.postprocess(response)]

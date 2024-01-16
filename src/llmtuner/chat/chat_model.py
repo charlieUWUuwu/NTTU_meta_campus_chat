@@ -45,20 +45,22 @@ class ChatModel:
         input_ids = torch.tensor([prompt], device=self.model.device)
 
         do_sample = input_kwargs.pop("do_sample", None)
-        temperature = input_kwargs.pop("temperature", None)
-        top_p = input_kwargs.pop("top_p", None)
-        top_k = input_kwargs.pop("top_k", None)
+        # temperature = input_kwargs.pop("temperature", None)
+        # top_p = input_kwargs.pop("top_p", None) 
+        # top_k = input_kwargs.pop("top_k", None)
         num_return_sequences = input_kwargs.pop("num_return_sequences", None)
         repetition_penalty = input_kwargs.pop("repetition_penalty", None)
-        max_length = input_kwargs.pop("max_length", None)
-        max_new_tokens = input_kwargs.pop("max_new_tokens", None)
+        # max_length = input_kwargs.pop("max_length", None) # 直接讓他去使用預設值
+        # max_new_tokens = input_kwargs.pop("max_new_tokens", None)
+        max_length = None
+        max_new_tokens = None
 
         generating_args = self.generating_args.to_dict()
         generating_args.update(dict(
             do_sample=do_sample if do_sample is not None else generating_args["do_sample"],
-            temperature=temperature or generating_args["temperature"],
-            top_p=top_p or generating_args["top_p"],
-            top_k=top_k or generating_args["top_k"],
+            temperature=generating_args["temperature"],  # 直接讓他去使用預設值
+            top_p=generating_args["top_p"],
+            top_k=generating_args["top_k"],
             num_return_sequences=num_return_sequences or 1,
             repetition_penalty=repetition_penalty or generating_args["repetition_penalty"],
             eos_token_id=[self.tokenizer.eos_token_id] + self.tokenizer.additional_special_tokens_ids,

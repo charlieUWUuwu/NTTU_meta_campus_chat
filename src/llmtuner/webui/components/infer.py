@@ -20,6 +20,7 @@ def create_infer_tab(engine: "Engine") -> Dict[str, "Component"]:
     elem_dict.update(dict(load_btn=load_btn, unload_btn=unload_btn, info_box=info_box))
 
     chat_box, chatbot, history, chat_elems = create_chat_box(engine, visible=False)
+    print("chat_elems : \n", chat_elems)
     elem_dict.update(dict(chat_box=chat_box, **chat_elems))
 
     load_btn.click(
