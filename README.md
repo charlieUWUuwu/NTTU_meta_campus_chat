@@ -69,7 +69,6 @@ python src/web_demo.py \
     $ git checkout develop
     $ git pull
     $ git checkout <NEW_BRANCH_NAME>
-    $ git rebase develop
     ```
 5. 將新 branch 的修正與 develop 合併並 push 到 Github
     ```shell
