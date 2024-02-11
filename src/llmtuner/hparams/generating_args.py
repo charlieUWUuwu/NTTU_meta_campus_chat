@@ -16,7 +16,7 @@ class GeneratingArguments:
         metadata={"help": "The value used to modulate the next token probabilities."}
     )
     top_p: Optional[float] = field(
-        default=0.7,
+        default=0.85,
         metadata={"help": "The smallest set of most probable tokens with probabilities that add up to top_p or higher are kept."}
     )
     top_k: Optional[int] = field(

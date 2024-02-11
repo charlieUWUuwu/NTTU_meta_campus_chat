@@ -8,6 +8,8 @@ from llmtuner.hparams import GeneratingArguments
 from llmtuner.webui.common import get_save_dir
 from llmtuner.webui.locales import ALERTS
 
+from vectordb import VectordbManager
+
 if TYPE_CHECKING:
     from llmtuner.webui.manager import Manager
 
@@ -25,6 +27,7 @@ class WebChatModel(ChatModel):
         self.model = None
         self.tokenizer = None
         self.generating_args = GeneratingArguments()
+        self.vectordb_manager = VectordbManager() # add
 
         if not lazy_init: # read arguments from command line
             super().__init__()
@@ -116,15 +119,23 @@ class WebChatModel(ChatModel):
         response = ""
 
         # Fixed settings
-        system = ""  # 之後改 VDB 取出的東西拉
-        max_new_tokens = 1024
-        top_p = 0.7
-        temperature = 0.0
+        # max_new_tokens = 1024
+        # top_p = 0.9
+        # temperature = 0.0
+
+        # 從 VDB 獲取資料
+        system = ""
+        docs = self.vectordb_manager.query(query, n_results=1)
+        for doc in docs:
+            system += doc.page_content
+        print("系統提示詞 : ", system) 
+        
 
         for new_text in self.stream_chat(
-            query, history, system, max_new_tokens=max_new_tokens, top_p=top_p, temperature=temperature
+            # query, history, system, max_new_tokens=max_new_tokens, top_p=top_p, temperature=temperature
+            query, None, system
         ):
-            # print("系統提示詞 : ", system) 
+            
             response += new_text
             # new_history = history + [(query, response)] # 不要拼接歷史資訊，改成用單問單答
             chatbot[-1] = [query, self.postprocess(response)]
