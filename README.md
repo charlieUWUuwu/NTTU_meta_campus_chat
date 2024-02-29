@@ -1,7 +1,5 @@
-![# LLaMA Factory](assets/logo.png)
-
 > [!NOTE]
-> This repo is forcked from [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)
+> This repo is forcked and modified from [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)
 
 Please refer to [data/README.md](data/README.md) for details.
 
@@ -28,26 +26,32 @@ Please refer to [data/README.md](data/README.md) for details.
 
 ## Getting Started
 1. install the requirements
-```bash
-conda create --name myenv python=3.10
-pip install -r requirements.txt
-```
+    ```bash
+    conda create --name myenv python=3.10
+    pip install -r requirements.txt
+    ```
 
 2. (optional) login HuggingFace account
 Some datasets require confirmation before using them, so we recommend logging in with your Hugging Face account using these commands.
-```bash
-pip install --upgrade huggingface_hub
-huggingface-cli login
-```
+    ```bash
+    pip install --upgrade huggingface_hub
+    huggingface-cli login
+    ```
 
 3. run the web page
-```bash
-python src/web_demo.py \
-    --model_name_or_path bigscience/bloomz-1b1 \
-    --adapter_name_or_path unmerge_model/bloomz-1b1_NTTU \
-    --template alpaca \
-    --finetuning_type lora
-```
+    - 使用本地端模型
+        ```bash
+        python src/web_demo.py \
+            --model_name_or_path bigscience/bloomz-1b1 \
+            --adapter_name_or_path unmerge_model/bloomz-1b1_NTTU \
+            --template alpaca \
+            --finetuning_type lora
+        ```
+    - 使用 chatGPT
+        ```bash
+        python src/web_demo.py \
+            --model_name_or_path chatGPT 
+        ```
 
 ## how to maintain this repo
 每次增修內容前請依循下列流程進行：
