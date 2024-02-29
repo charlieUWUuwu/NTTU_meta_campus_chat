@@ -125,21 +125,22 @@ class WebChatModel(ChatModel):
 
         # 從 VDB 獲取資料
         system = ""
-        docs = self.vectordb_manager.query(query, n_results=1)
+        docs = self.vectordb_manager.query(query, n_results=5) # 回傳最相關的 5 筆相關資料
         for doc in docs:
             system += doc.page_content
-        print("系統提示詞 : ", system) 
+        print("系統提示詞 : ", system)
         
 
         for new_text in self.stream_chat(
             # query, history, system, max_new_tokens=max_new_tokens, top_p=top_p, temperature=temperature
             query, None, system
         ):
-            
+            # print("我是new_text : \n", new_text)
             response += new_text
             # new_history = history + [(query, response)] # 不要拼接歷史資訊，改成用單問單答
             chatbot[-1] = [query, self.postprocess(response)]
             # yield chatbot, new_history
+            # print("我是 chatbot : \n", chatbot)
 
             yield chatbot, history
 
