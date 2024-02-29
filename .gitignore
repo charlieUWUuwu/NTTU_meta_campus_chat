@@ -166,3 +166,4 @@ cache/
 
 *.tgz
 add_data2vdb.py
+.env

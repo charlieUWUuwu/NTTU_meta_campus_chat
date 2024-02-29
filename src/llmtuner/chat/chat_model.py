@@ -9,6 +9,8 @@ from llmtuner.data.template import get_template_and_fix_tokenizer
 from llmtuner.extras.misc import get_logits_processor
 from llmtuner.model import dispatch_model, get_infer_args, load_model_and_tokenizer
 
+from llmtuner.chat.streamer import ChatgptStreamer # 針對 ChatOpenAI 設計的
+
 
 @dataclass
 class Response:
@@ -27,9 +29,10 @@ class ChatModel:
         self.model, self.tokenizer = load_model_and_tokenizer(
             model_args, finetuning_args, is_trainable=False, add_valuehead=(not self.can_generate)
         )
-        self.tokenizer.padding_side = "left" if self.can_generate else "right"
-        self.model = dispatch_model(self.model)
-        self.template = get_template_and_fix_tokenizer(data_args.template, self.tokenizer)
+        if(model_args.model_name_or_path != "chatGPT"):
+            self.tokenizer.padding_side = "left" if self.can_generate else "right"
+            self.model = dispatch_model(self.model)
+            self.template = get_template_and_fix_tokenizer(data_args.template, self.tokenizer)
 
     def _process_args(
         self,
@@ -38,6 +41,9 @@ class ChatModel:
         system: Optional[str] = None,
         **input_kwargs
     ) -> Tuple[Dict[str, Any], int]:
+        if(self.tokenizer == None):
+            return {}, 0 # chatGPT 不須設定 num_return_sequences 等參數
+
         prompt, _ = self.template.encode_oneturn(
             tokenizer=self.tokenizer, query=query, resp="", history=history, system=system
         )
@@ -100,21 +106,32 @@ class ChatModel:
         Returns: [(response_text, prompt_length, response_length)] * n (default n=1)
         """
         gen_kwargs, prompt_length = self._process_args(query, history, system, **input_kwargs)
-        generate_output = self.model.generate(**gen_kwargs)
-        response_ids = generate_output[:, prompt_length:]
-        response = self.tokenizer.batch_decode(
-            response_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True
-        )
-        results = []
-        for i in range(len(response)):
-            eos_index = (response_ids[i] == self.tokenizer.eos_token_id).nonzero()
-            response_length = (eos_index[0].item() + 1) if len(eos_index) else len(response_ids[i])
-            results.append(Response(
-                response_text=response[i],
-                response_length=response_length,
+        if prompt_length == 0:
+            # 使用 chatGPT
+            templated_prompt = f"參考資料:{system}\n問題:{query}\n回答:"
+            generate_text = self.model.invoke(templated_prompt).content
+            results = list(Response(
+                response_text=generate_text,
+                response_length=len(generate_text),
                 prompt_length=prompt_length,
-                finish_reason="stop" if len(eos_index) else "length"
+                finish_reason="stop"
             ))
+        else:
+            generate_output = self.model.generate(**gen_kwargs) # 模型生成回應
+            response_ids = generate_output[:, prompt_length:]
+            response = self.tokenizer.batch_decode(
+                response_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True
+            )
+            results = []
+            for i in range(len(response)):
+                eos_index = (response_ids[i] == self.tokenizer.eos_token_id).nonzero()
+                response_length = (eos_index[0].item() + 1) if len(eos_index) else len(response_ids[i])
+                results.append(Response(
+                    response_text=response[i],
+                    response_length=response_length,
+                    prompt_length=prompt_length,
+                    finish_reason="stop" if len(eos_index) else "length"
+                ))
 
         return results
 
@@ -127,12 +144,17 @@ class ChatModel:
         **input_kwargs
     ) -> Generator[str, None, None]:
         gen_kwargs, _ = self._process_args(query, history, system, **input_kwargs)
-        streamer = TextIteratorStreamer(self.tokenizer, timeout=60.0, skip_prompt=True, skip_special_tokens=True)
-        gen_kwargs["streamer"] = streamer
+        if gen_kwargs == {}:
+            # 使用 ChatOpenAI 
+            streamer = ChatgptStreamer(timeout=3)
+            thread = Thread(target=streamer.model_generate, args=(self.model, system, query))
+        else:
+            streamer = TextIteratorStreamer(self.tokenizer, timeout=60.0, skip_prompt=True, skip_special_tokens=True)
+            gen_kwargs["streamer"] = streamer
 
-        thread = Thread(target=self.model.generate, kwargs=gen_kwargs)
+            thread = Thread(target=self.model.generate, kwargs=gen_kwargs)
+
         thread.start()
-
         yield from streamer
 
     @torch.inference_mode()

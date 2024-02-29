@@ -4,6 +4,10 @@ from transformers.integrations import is_deepspeed_zero3_enabled
 from transformers.utils.versions import require_version
 from trl import AutoModelForCausalLMWithValueHead
 
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+
 import llmtuner.model.patcher as patcher
 from llmtuner.extras.logging import get_logger
 from llmtuner.extras.misc import count_parameters, try_download_model_from_ms
@@ -11,6 +15,12 @@ from llmtuner.model.adapter import init_adapter
 from llmtuner.model.utils import (
     load_valuehead_params, prepare_model_for_training, resize_embedding_layer, register_autoclass
 )
+
+from langchain.schema import (
+    HumanMessage,
+)
+
+load_dotenv()  # 加載.env檔案
 
 if TYPE_CHECKING:
     from transformers import PreTrainedModel, PreTrainedTokenizer
@@ -38,73 +48,76 @@ def load_model_and_tokenizer(
 
     Support both training and inference.
     """
-
-    try_download_model_from_ms(model_args)
-
-    config_kwargs = {
-        "trust_remote_code": True,
-        "cache_dir": model_args.cache_dir,
-        "revision": model_args.model_revision,
-        "token": model_args.hf_hub_token
-    }
-
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_args.model_name_or_path,
-        use_fast=model_args.use_fast_tokenizer,
-        split_special_tokens=model_args.split_special_tokens,
-        padding_side="right", # training with left-padded tensors in fp16 precision may cause overflow
-        **config_kwargs
-    )
-    config = AutoConfig.from_pretrained(model_args.model_name_or_path, **config_kwargs)
-
-    patcher.patch_tokenizer(tokenizer)
-    patcher.patch_config(config, model_args)
-    patcher.configure_rope(config, model_args, is_trainable)
-    patcher.configure_flashattn(config_kwargs, model_args)
-    patcher.configure_longlora(config, model_args, is_trainable)
-    patcher.configure_quantization(config, config_kwargs, tokenizer, model_args, finetuning_args)
-
-    model = AutoModelForCausalLM.from_pretrained(
-        model_args.model_name_or_path,
-        config=config,
-        torch_dtype=model_args.compute_dtype,
-        low_cpu_mem_usage=(not is_deepspeed_zero3_enabled()),
-        **config_kwargs
-    )
-    patcher.patch_model(model)
-    register_autoclass(config, model, tokenizer)
-    resize_embedding_layer(model, tokenizer)
-
-    model = prepare_model_for_training(model=model, finetuning_args=finetuning_args) if is_trainable else model
-    model = init_adapter(model, model_args, finetuning_args, is_trainable)
-
-    if add_valuehead:
-        model: "AutoModelForCausalLMWithValueHead" = AutoModelForCausalLMWithValueHead.from_pretrained(model)
-        patcher.patch_valuehead_model(model)
-
-        if model_args.adapter_name_or_path is not None:
-            vhead_path = model_args.adapter_name_or_path[-1]
-        else:
-            vhead_path = model_args.model_name_or_path
-
-        vhead_params = load_valuehead_params(vhead_path, model_args)
-        if vhead_params is not None:
-            model.load_state_dict(vhead_params, strict=False)
-            logger.info("Loaded valuehead from checkpoint: {}".format(vhead_path))
-
-    if not is_trainable:
-        model.requires_grad_(False) # fix all model params
-        model = model.to(model_args.compute_dtype) if not getattr(model, "quantization_method", None) else model
-        model.eval()
+    if model_args.model_name_or_path == "chatGPT":
+        model = ChatOpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0)
+        tokenizer = None
     else:
-        model.train()
+        try_download_model_from_ms(model_args)
 
-    trainable_params, all_param = count_parameters(model)
-    logger.info("trainable params: {:d} || all params: {:d} || trainable%: {:.4f}".format(
-        trainable_params, all_param, 100 * trainable_params / all_param
-    ))
+        config_kwargs = {
+            "trust_remote_code": True,
+            "cache_dir": model_args.cache_dir,
+            "revision": model_args.model_revision,
+            "token": model_args.hf_hub_token
+        }
 
-    if not is_trainable:
-        logger.info("This IS expected that the trainable params is 0 if you are using model for inference only.")
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_args.model_name_or_path,
+            use_fast=model_args.use_fast_tokenizer,
+            split_special_tokens=model_args.split_special_tokens,
+            padding_side="right", # training with left-padded tensors in fp16 precision may cause overflow
+            **config_kwargs
+        )
+        config = AutoConfig.from_pretrained(model_args.model_name_or_path, **config_kwargs)
+
+        patcher.patch_tokenizer(tokenizer)
+        patcher.patch_config(config, model_args)
+        patcher.configure_rope(config, model_args, is_trainable)
+        patcher.configure_flashattn(config_kwargs, model_args)
+        patcher.configure_longlora(config, model_args, is_trainable)
+        patcher.configure_quantization(config, config_kwargs, tokenizer, model_args, finetuning_args)
+
+        model = AutoModelForCausalLM.from_pretrained(
+            model_args.model_name_or_path,
+            config=config,
+            torch_dtype=model_args.compute_dtype,
+            low_cpu_mem_usage=(not is_deepspeed_zero3_enabled()),
+            **config_kwargs
+        )
+        patcher.patch_model(model)
+        register_autoclass(config, model, tokenizer)
+        resize_embedding_layer(model, tokenizer)
+
+        model = prepare_model_for_training(model=model, finetuning_args=finetuning_args) if is_trainable else model
+        model = init_adapter(model, model_args, finetuning_args, is_trainable)
+
+        if add_valuehead:
+            model: "AutoModelForCausalLMWithValueHead" = AutoModelForCausalLMWithValueHead.from_pretrained(model)
+            patcher.patch_valuehead_model(model)
+
+            if model_args.adapter_name_or_path is not None:
+                vhead_path = model_args.adapter_name_or_path[-1]
+            else:
+                vhead_path = model_args.model_name_or_path
+
+            vhead_params = load_valuehead_params(vhead_path, model_args)
+            if vhead_params is not None:
+                model.load_state_dict(vhead_params, strict=False)
+                logger.info("Loaded valuehead from checkpoint: {}".format(vhead_path))
+
+        if not is_trainable:
+            model.requires_grad_(False) # fix all model params
+            model = model.to(model_args.compute_dtype) if not getattr(model, "quantization_method", None) else model
+            model.eval()
+        else:
+            model.train()
+
+        trainable_params, all_param = count_parameters(model)
+        logger.info("trainable params: {:d} || all params: {:d} || trainable%: {:.4f}".format(
+            trainable_params, all_param, 100 * trainable_params / all_param
+        ))
+
+        if not is_trainable:
+            logger.info("This IS expected that the trainable params is 0 if you are using model for inference only.")
 
     return model, tokenizer
